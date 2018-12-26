@@ -2,13 +2,11 @@
 
 {% block content%}
 
-
-
 <div class="row">
     <div class="col-12 col-md-12">
         <div class="row">
             <div class="col-sm-12 col-md-6">
-                <h2>Cantons</h2>
+                <h2>Districts</h2>
             </div>
         <div class="col">
             <div class="container">
@@ -17,7 +15,7 @@
                     <div class="input-group" >
                         <input id="table_filter" type="text" class="form-control" aria-label="Text input with segmented button dropdown" >
                         <div class="input-group-btn" >
-                        <button href="{% url 'filter' %}" type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                             <span class="label-icon" >Filter</span> <span class="caret" >&nbsp;</span></button>
                         <div class="dropdown-menu dropdown-menu-right" >
                             <ul class="category_filters" >
@@ -26,6 +24,9 @@
                                 </li>
                                 <li >
                                     <input class="cat_type category-input" data-label="Province" id="province" value="" name="radios" type="radio" ><label for="province" >Province</label>
+                                </li>
+                                <li >
+                                    <input class="cat_type category-input" data-label="Canton" id="canton" value="" name="radios" type="radio" ><label for="canton" >Canton</label>
                                 </li>
                             </ul>
                         </div>
@@ -42,21 +43,23 @@
                         <tr>
                             <td>Number</td>
                             <td>Code</td>
-                            <td>Canton Name</td>
-                            <td>Province code</td>
+                            <td>Canton code</td>
+                            <td>District name</td>
+                            <td>Canton name</td>
                             <td>Province name</td>
                             <td>Action</td>
                         </tr>
                     </thead>
                     <tbody>
-                        {% if cantonsList %}
-                        {% for solicitud in cantonsList %}
+                        {% if districtsList %}
+                        {% for solicitud in districtsList %}
                         <tr>
                             <td>{{ solicitud.pk}}</td>
                             <td>{{ solicitud.fields.code}}</td>
-                            <td>{{ solicitud.fields.name }} </td>
-                            <td>{{ solicitud.fields.province }} </td>      
-                            <td>{{ solicitud.provinceName}}</td>                      
+                            <td>{{ solicitud.fields.canton }} </td>
+                            <td>{{ solicitud.fields.name }} </td>     
+                            <td>{{ solicitud.cantonName }} </td>  
+                            <td>{{ solicitud.provinceName }} </td>                           
                             <td>
                                 <a class="btn btn-danger" href="#">Delete</a>
                             </td>
@@ -69,22 +72,22 @@
                     </tbody>
                 </table> 
 
-                {% if cantonsList.has_other_pages %}
+                {% if districtsList.has_other_pages %}
                     <ul class="pagination">
-                        {% if cantonsList.has_previous %}
-                        <li><a href="?page={{ cantonsList.previous_page_number }}">&laquo;</a></li>
+                        {% if districtsList.has_previous %}
+                        <li><a href="?page={{ districtsList.previous_page_number }}">&laquo;</a></li>
                         {% else %}
                         <li class="disabled"><span>&laquo;</span></li>
                         {% endif %}
-                        {% for i in cantonsList.paginator.page_range %}
-                        {% if cantonsList.number == i %}
+                        {% for i in districtsList.paginator.page_range %}
+                        {% if districtsList.number == i %}
                             <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
                         {% else %}
                             <li><a href="?page={{ i }}">{{ i }}</a></li>
                         {% endif %}
                         {% endfor %}
-                        {% if cantonsList.has_next %}
-                        <li><a href="?page={{ cantonsList.next_page_number }}">&raquo;</a></li>
+                        {% if districtsList.has_next %}
+                        <li><a href="?page={{ districtsList.next_page_number }}">&raquo;</a></li>
                         {% else %}
                         <li class="disabled"><span>&raquo;</span></li>
                         {% endif %}

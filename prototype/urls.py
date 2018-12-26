@@ -29,5 +29,7 @@ urlpatterns = [
  #   url(r'^index/', views.Index),
  #   path('articles/2003/', views.special_case_2003),
    # url(r'^cantons/',Lista, name='cantons')
-    path('',views.Index,name='index')
+    path('',views.IndexCantons,name='index'),
+    path('/searchDistricts', views.IndexDistricts, name="searchDistricts"),
+    path('/searchDistrictss', views.filter, name="filter")
 ]
