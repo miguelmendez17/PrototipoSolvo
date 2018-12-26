@@ -1,11 +1,99 @@
 {% extends 'base.html' %}
 
-esto no se muesta :), solo lo contenido en el bloque
-Puede encontrar información relevante en https://docs.djangoproject.com/en/1.9/ref/templates/language/
-
-
 {% block content%}
 
-<h1 class="text-center"> Happy hacking. </h1>
+
+
+<div class="row">
+    <div class="col-12 col-md-12">
+        <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <h2>Cantons</h2>
+            </div>
+        <div class="col">
+            <div class="container">
+                <div class="row searchFilter" >
+                    <div class="col-sm-12" >
+                    <div class="input-group" >
+                        <input id="table_filter" type="text" class="form-control" aria-label="Text input with segmented button dropdown" >
+                        <div class="input-group-btn" >
+                        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                            <span class="label-icon" >Filter</span> <span class="caret" >&nbsp;</span></button>
+                        <div class="dropdown-menu dropdown-menu-right" >
+                            <ul class="category_filters" >
+                            <li >
+                            <input class="cat_type category-input" data-label="All" id="all" value="" name="radios" type="radio" ><label for="all" >Province</label>
+                            </li>
+                            <li >
+                            <input type="radio" name="radios" id="Support" value="Support" ><label class="category-label" for="Support" >Canton</label>
+                            </li>
+                            </ul>
+                        </div>
+                        <button id="searchBtn" type="button" class="btn btn-secondary btn-search" ><span class="glyphicon glyphicon-search" >&nbsp;</span> <span class="label-icon" >Search</span></button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <table class="table">
+                    <thead>
+                        <tr>
+                            <td>Number</td>
+                            <td>Code</td>
+                            <td>Name</td>
+                            <td>Province</td>
+                            <td>Action</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if lista %}
+                        {% for solicitud in lista %}
+                        <tr>
+                            <td>{{ solicitud.pk}}</td>
+                            <td>{{ solicitud.fields.code}}</td>
+                            <td>{{ solicitud.fields.name }} </td>
+                            <td>{{ solicitud.fields.province }} </td>                            
+                            <td>
+                                <a class="btn btn-primary" href="#">Edit</a>
+                                <a class="btn btn-danger" href="#">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        
+                        {% else %}
+                        <h1>No hay registros de solicitudes</h1>
+                        {% endif %}
+                    </tbody>
+                </table> 
+
+                {% if lista.has_other_pages %}
+                    <ul class="pagination">
+                        {% if lista.has_previous %}
+                        <li><a href="?page={{ lista.previous_page_number }}">&laquo;</a></li>
+                        {% else %}
+                        <li class="disabled"><span>&laquo;</span></li>
+                        {% endif %}
+                        {% for i in lista.paginator.page_range %}
+                        {% if lista.number == i %}
+                            <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                        {% else %}
+                            <li><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+                        {% if lista.has_next %}
+                        <li><a href="?page={{ lista.next_page_number }}">&raquo;</a></li>
+                        {% else %}
+                        <li class="disabled"><span>&raquo;</span></li>
+                        {% endif %}
+                    </ul>
+                    {% endif %}
+        </div>
+    </div>
+        
+</div>
+
+</div>
 
 {% endblock %}

@@ -18,9 +18,16 @@ from django.conf.urls import url
 from django.contrib import admin
 from .views import render_template
 from django.views.generic.base import RedirectView
+from django.urls import path
+from cantonsdistricts import views
 
 urlpatterns = [
-    url(r'^$', RedirectView.as_view(url='/index.html')), 
-    url(r'^(?P<template>.+)$', render_template), # cualquier cosa se renderiza con template
-    url(r'^admin/', admin.site.urls),
+  #  path('/index.html', views.IndexView.as_view(), name='index'),
+  #  url(r'^$', RedirectView.as_view(url='/index.html')),
+  #  url(r'^(?P<template>.+)$',render_template), # cualquier cosa se renderiza con template
+  #  url(r'^admin/', admin.site.urls),
+ #   url(r'^index/', views.Index),
+ #   path('articles/2003/', views.special_case_2003),
+   # url(r'^cantons/',Lista, name='cantons')
+    path('',views.Index,name='index')
 ]
