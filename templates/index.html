@@ -2,40 +2,47 @@
 
 {% block content%}
 
-
-
 <div class="row">
     <div class="col-12 col-md-12">
         <div class="row">
             <div class="col-sm-12 col-md-6">
                 <h2>Cantons</h2>
             </div>
-        <div class="col">
-            <div class="container">
-                <div class="row searchFilter" >
-                    <div class="col-sm-12" >
-                    <div class="input-group" >
-                        <input id="table_filter" type="text" class="form-control" aria-label="Text input with segmented button dropdown" >
-                        <div class="input-group-btn" >
-                        <button href="{% url 'filter' %}" type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-                            <span class="label-icon" >Filter</span> <span class="caret" >&nbsp;</span></button>
-                        <div class="dropdown-menu dropdown-menu-right" >
-                            <ul class="category_filters" >
-                                <li >
-                                    <input class="cat_type category-input" data-label="All" id="all" value="" name="radios" type="radio" ><label for="all" >All</label>
-                                </li>
-                                <li >
-                                    <input class="cat_type category-input" data-label="Province" id="province" value="" name="radios" type="radio" ><label for="province" >Province</label>
-                                </li>
-                            </ul>
+        <form action="{% url 'searchCantons' %}" method="post">
+            {% csrf_token %}    
+            <div class="col">
+                <div class="container">
+                    <div class="row searchFilter" >
+                        <div class="col-sm-12" >
+                        <div class="input-group" >
+                            <input id="table_filter" name="searchText" type="text" class="form-control" aria-label="Text input with segmented button dropdown" >
+                            <div class="input-group-btn" >
+                            <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                                <span class="label-icon" >Filter</span> <span class="caret" >&nbsp;</span></button>
+                            <div class="dropdown-menu dropdown-menu-right" >
+                                <ul class="category_filters" >
+                                    <li >
+                                        <input checked value="All" class="cat_type category-input" name="radios" type="radio"><label for="all">All</label>
+                                    </li>
+                                    <li >
+                                        <input value="Canton" class="cat_type category-input" name="radios" type="radio"><label for="canton">Canton name</label>
+                                    </li>
+                                    <li >
+                                        <input class="cat_type category-input" value="Province" name="radios" type="radio" ><label for="province">Province</label>
+                                    </li>
+                                </ul>
+                            </div>
+                                <button class="btn btn-primary" type="submit">Search</button>
+                            </div>
+                    
                         </div>
-                        <button id="searchBtn" type="button" class="btn btn-secondary btn-search" ><span class="glyphicon glyphicon-search" >&nbsp;</span> <span class="label-icon" >Search</span></button>
                         </div>
-                    </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+        </form>
+
         <div class="container">
             <table class="table">
                     <thead>
@@ -58,7 +65,7 @@
                             <td>{{ solicitud.fields.province }} </td>      
                             <td>{{ solicitud.provinceName}}</td>                      
                             <td>
-                                <a class="btn btn-danger" href="#">Delete</a>
+                                <a href="{% url 'delete' solicitud.pk %}" class="btn btn-danger">Delete</a>
                             </td>
                         </tr>
                         {% endfor %}
@@ -91,10 +98,8 @@
                     </ul>
                     {% endif %}
         </div>
-    </div>
-        
+    </div>  
 </div>
-
 </div>
-
 {% endblock %}
+

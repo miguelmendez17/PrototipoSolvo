@@ -22,14 +22,10 @@ from django.urls import path
 from cantonsdistricts import views
 
 urlpatterns = [
-  #  path('/index.html', views.IndexView.as_view(), name='index'),
-  #  url(r'^$', RedirectView.as_view(url='/index.html')),
-  #  url(r'^(?P<template>.+)$',render_template), # cualquier cosa se renderiza con template
-  #  url(r'^admin/', admin.site.urls),
- #   url(r'^index/', views.Index),
- #   path('articles/2003/', views.special_case_2003),
-   # url(r'^cantons/',Lista, name='cantons')
     path('',views.IndexCantons,name='index'),
-    path('/searchDistricts', views.IndexDistricts, name="searchDistricts"),
-    path('/searchDistrictss', views.filter, name="filter")
+    path('<int:pk>/', views.DeleteCanton, name='delete'),
+    path('search/', views.searchCantons, name='searchCantons'),
+    path('/searchDistricts', views.IndexDistricts, name="searchDist"),
+    path('/searchDistricts/<int:pk>/', views.DeleteDistrict, name='deleteDistrict'),
+    path('/searchDistricts/search/', views.searchDistricts, name='searchDistricts')
 ]
